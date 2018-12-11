@@ -3,6 +3,7 @@ from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def hello():
     return "hello world"
@@ -12,31 +13,41 @@ def hello():
 def about(nombre=None):
     return render_template('about.html', nombre=nombre)
 
-@app.route("/suma/<int:a>/<int:b>")
-def suma(a,b):
-    c = a+b
-    return str(c)
-
-@app.route("/suma/<int:a>/<int:b>/json")
-def sumajson(a,b):
-    return jsonify(a=a,b=b,suma=a+b)
-
-@app.route("/divide/<int:a>/<int:b>")
-def divide(a,b):
-    c = 0
-    if b != 0:
-        c = a/b
+@app.route("/suma/<float:a>/<float:b>")
+@app.route("/suma/<float:a>/<int:b>")
+@app.route("/suma/<int:a>/<float:b>")
+@app.route("/suma/<int:a>/<int:b>/<string:json>")
+@app.route("/suma/<float:a>/<float:b>/<string:json>")
+@app.route("/suma/<float:a>/<int:b>/<string:json>")
+@app.route("/suma/<int:a>/<float:b>/<string:json>")
+def suma(a,b,json=None):
+    if json == None:
+        c = a+b
         return str(c)
     else:
-        return "tried to divide by 0"
-    
+        c = a+b
+        return jsonify(a=a,b=b,suma=a+b)
 
-@app.route("/divide/<int:a>/<int:b>/json")
-def dividejson(a,b):
-    if b != 0:
-        c = a/b
-        
-        return jsonify(a=a,b=b,division=c)
+
+@app.route("/divide/<string:a>/<string:b>")
+@app.route("/divide/<float:a>/<float:b>")
+@app.route("/divide/<float:a>/<int:b>")
+@app.route("/divide/<int:a>/<float:b>")
+@app.route("/divide/<int:a>/<int:b>/<string:json>")
+@app.route("/divide/<float:a>/<float:b>/<string:json>")
+@app.route("/divide/<float:a>/<int:b>/<string:json>")
+@app.route("/divide/<int:a>/<float:b>/<string:json>")
+def divide(a,b,json=None):
+    if json == None:
+        if b != 0:
+
+            c = a/b
+            return str(c)
+        else:
+            return "tried to divide by 0"
     else:
-        return jsonify("division by 0")
-    
+        if b != 0:
+            c = a/b
+            return jsonify(a=a,b=b,division=c)
+        else:
+            return jsonify(error="Division entre 0")
