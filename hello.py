@@ -19,13 +19,24 @@ def suma(a,b):
 
 @app.route("/suma/<int:a>/<int:b>/json")
 def sumajson(a,b):
-    return jsonify(suma=a+b)
+    return jsonify(a=a,b=b,suma=a+b)
 
 @app.route("/divide/<int:a>/<int:b>")
 def divide(a,b):
-    c = a/b
-    return str(c)
+    c = 0
+    if b != 0:
+        c = a/b
+        return str(c)
+    else:
+        return "tried to divide by 0"
+    
 
 @app.route("/divide/<int:a>/<int:b>/json")
 def dividejson(a,b):
-    return jsonify(division=a/b)
+    if b != 0:
+        c = a/b
+        
+        return jsonify(a=a,b=b,division=c)
+    else:
+        return jsonify("division by 0")
+    
