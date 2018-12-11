@@ -52,3 +52,6 @@ def divide(a,b,json=None):
             return jsonify(a=a,b=b,division=c)
         else:
             return jsonify(error="Division entre 0")
+
+if __name__ == "__main__":
+	app.run(host='0.0.0.0',port=5000)
