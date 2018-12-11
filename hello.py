@@ -16,6 +16,7 @@ def about(nombre=None):
 @app.route("/suma/<float:a>/<float:b>")
 @app.route("/suma/<float:a>/<int:b>")
 @app.route("/suma/<int:a>/<float:b>")
+@app.route("/suma/<int:a>/<int:b>")
 @app.route("/suma/<int:a>/<int:b>/<string:json>")
 @app.route("/suma/<float:a>/<float:b>/<string:json>")
 @app.route("/suma/<float:a>/<int:b>/<string:json>")
@@ -29,8 +30,8 @@ def suma(a,b,json=None):
         return jsonify(a=a,b=b,suma=a+b)
 
 
-@app.route("/divide/<string:a>/<string:b>")
 @app.route("/divide/<float:a>/<float:b>")
+@app.route("/divide/<int:a>/<int:b>")
 @app.route("/divide/<float:a>/<int:b>")
 @app.route("/divide/<int:a>/<float:b>")
 @app.route("/divide/<int:a>/<int:b>/<string:json>")
